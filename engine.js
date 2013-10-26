@@ -24,7 +24,7 @@ createGame = function (data) {
     players = newPlayer(roomId, player);
 
   this.join(roomId);
-  this.emit('gameCreated', { players: players });
+  this.emit('gameCreated', { roomId: roomId, players: players });
 },
 
 joinGame = function (data) {
@@ -37,7 +37,7 @@ joinGame = function (data) {
     var updatedPlayers = newPlayer(roomId, player);
     this.join(roomId);
 
-    this.emit('gameJoined', { players: updatedPlayers });
+    this.emit('gameJoined', { roomId: roomId, players: updatedPlayers });
     socket.broadcast.to(roomId).emit('playerJoined', data);
   }
 },

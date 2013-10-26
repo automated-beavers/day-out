@@ -24,17 +24,73 @@ var initGame = function () {
     foregroundMap.loadData(foregroundData);
   }
 
-  var currentPlayer = new Sprite(game.spriteWidth, game.spriteHeight);
-  var players = [currentPlayer];
+  //var currentPlayer = new Sprite(game.spriteWidth, game.spriteHeight);
+  var players = [];
+
+  var Player = Class.create(Sprite, {
+    initialize: function(x, y) {
+      Sprite.call(this, game.spriteWidth, game.spriteHeight);
+      this.offset = 0;
+      this.direction = 0;
+      this.walk = 0;
+      this.frame = [0, 1];
+      this.startingX = 10;
+      this.startingY = 10;
+      this.isMoving = false;
+      this.x = this.startingX * game.spriteWidth;
+      this.y = this.startingY * game.spriteHeight;
+      this.image = new Surface(game.spriteSheetWidth, game.spriteSheetHeight);
+      this.image.draw(game.assets['images/beaver.png']);
+    },
+    onenterframe: function () {
+      this.move();
+    },
+    move: function () {
+      this.frame = this.offset + this.direction * 2 + this.walk;
+      console.log(this.direction);
+
+      if (this.isMoving) {
+        this.moveBy(this.xMove, this.yMove);
+
+        if (!(game.frame % 2)) {
+          this.walk++;
+          this.walk %= 2;
+        }
+
+        if (this.xMove || this.yMove) {
+          this.isMoving = false;
+        }
+      } else {
+        this.xMove = 0;
+        this.yMove = 0;
+
+        if (game.input.up) {
+          this.direction = 1;
+          this.yMove = -4;
+        } else if (game.input.down) {
+          this.direction = 0;
+          this.yMove = 4;
+        } else if (game.input.right) {
+          this.direction = 2;
+          this.xMove = 4;
+        } else if (game.input.left) {
+          this.direction = 3;
+          this.xMove = -4;
+        }
+
+        if (this.xMove || this.yMove) {
+          this.isMoving = true;
+          this.move();
+        }
+      }
+    }
+  });
+
+  var currentPlayer = undefined;
 
   var initPlayers = function () {
-    currentPlayer.frame = [0, 1];
-    currentPlayer.startingX = 10;
-    currentPlayer.startingY = 10;
-    currentPlayer.x = currentPlayer.startingX * game.spriteWidth;
-    currentPlayer.y = currentPlayer.startingY * game.spriteHeight;
-    currentPlayer.image = new Surface(game.spriteWidth, game.spriteHeight);
-    currentPlayer.image.draw(game.assets['images/beaver.png']);
+    currentPlayer = new Player(10, 10);
+    players.push(currentPlayer);
   };
 
   var initWorld = function () {

@@ -3,6 +3,7 @@ var
   http = require('http'),
   path = require('path'),
   app = express();
+  //engine = require('./engine');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -21,3 +22,8 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 });
 
 var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+  console.log('Client connected');
+  // engine.init(io, socket);
+});

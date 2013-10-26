@@ -19,23 +19,23 @@ App.io = (function () {
   },
 
   gameCreated = function (data) {
-    App.session.gameId = data.gameId;
-    App.session.socketId = data.socketId;
-  }
+    App.players = data.players;
+  },
+
+  playerJoined = function (data) {
+    App.players = data.players;
+  },
 
   // Emitters
 
-  createGame = function (data) {
-    socket.emit('createGame', data.name);
+  joinGame = function (data) {
+    socket.emit('joinGame', data);
   };
 
   return {
-    init: init,
-    createGame: createGame
+    init: init
   }
 
 })();
 
 App.io.init();
-
-App.session = {};

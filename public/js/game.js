@@ -1,6 +1,8 @@
 /* main game */
 
-var initGame = function () {
+App.game = {};
+App.game.init = function () {
+  console.log('game loaded');
 
   enchant();
 
@@ -132,5 +134,5 @@ var initGame = function () {
     initWorld();
   };
 
-  game.start()
-}
+  game.start();
+};

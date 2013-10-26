@@ -6,7 +6,7 @@ App.game.init = function () {
 
   enchant();
 
-  var game = new Game(1920, 1280);
+  var game = new Game(1280, 768);
   game.fps = 20;
   game.scale = 1;
   game.spriteSheetWidth = 512;
@@ -113,7 +113,7 @@ App.game.init = function () {
   var currentPlayer = undefined;
 
   var initPlayers = function () {
-    currentPlayer = new Player(4, 18);
+    currentPlayer = new Player(3, 11);
     players.push(currentPlayer);
   };
 

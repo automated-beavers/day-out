@@ -6,13 +6,13 @@ App.game.init = function () {
 
   enchant();
 
-  var game = new Game(960, 640);
-  game.fps = 15;
+  var game = new Game(1920, 1280);
+  game.fps = 20;
   game.scale = 1;
-  game.spriteSheetWidth = 256;
-  game.spriteSheetHeight = 32;
-  game.spriteWidth = 32;
-  game.spriteHeight = 32;
+  game.spriteSheetWidth = 512;
+  game.spriteSheetHeight = 64;
+  game.spriteWidth = 64;
+  game.spriteHeight = 64;
   game.preload(['images/world.png', 'images/beaver.png']);
 
   var backgroundMap = new Map(game.spriteWidth, game.spriteHeight);
@@ -82,16 +82,16 @@ App.game.init = function () {
 
         if (game.input.up) {
           this.direction = 1;
-          this.yMove = -4;
+          this.yMove = -8;
         } else if (game.input.down) {
           this.direction = 0;
-          this.yMove = 4;
+          this.yMove = 8;
         } else if (game.input.right) {
           this.direction = 2;
-          this.xMove = 4;
+          this.xMove = 8;
         } else if (game.input.left) {
           this.direction = 3;
-          this.xMove = -4;
+          this.xMove = -8;
         }
 
         if (this.xMove || this.yMove) {

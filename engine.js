@@ -12,7 +12,6 @@ init = function(gameIo, gameSocket){
 },
 
 bindEvents = function () {
-  socket.emit('connected', { message: 'You are connected!' });
   socket.on('createGame', createGame);
   socket.on('joinGame', joinGame);
 },

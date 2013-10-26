@@ -4,3 +4,54 @@
   margin: 0 auto;
   padding: 0;
 }
+
+.lobby-players{
+  list-style: none;
+  margin: 20px 0;
+}
+
+.lobby-players li{
+  margin: -1px 0;
+  padding: 6px 12px 6px 0;
+  font-size: 2em;
+  border: 1px solid black;
+  border-radius: 0 10px 10px 0;
+  font-weight: 600;
+}
+
+.lobby-players li img{
+  margin-right: 12px;
+}
+
+.lobby-players li.player-1{
+  color: #ceb621;
+}
+.lobby-players li.player-2{
+  color: #d4000b;
+}
+.lobby-players li.player-3{
+  color: #009000;
+}
+.lobby-players li.player-4{
+  color: #003BFF;
+}
+
+.game-id{
+  background: #1abc9c;
+  padding: 12px 18px;
+  color: #fff;
+  border-radius: 12px 12px 12px 12px;
+  margin-top: 20px;
+}
+
+.game-id label{
+  font-weight: 600;
+  font-size: 1.6em;
+  margin-bottom: 0;
+}
+.game-id p{
+  font-size: 4em;
+  font-weight: 600;
+  margin-top: -18px;
+  margin-bottom: 0;
+}

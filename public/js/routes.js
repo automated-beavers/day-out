@@ -21,4 +21,5 @@ controller("host", function ($scope, $location) {
 
 controller("lobby", function($scope){
   $scope.players = App.players;
+  $scope.roomId = App.roomId;
 });

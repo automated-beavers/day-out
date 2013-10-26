@@ -22,6 +22,20 @@ var initGame = function () {
     backgroundMap.loadData(backgroundData);
     foregroundMap.image = game.assets['images/beaver.png'];
     foregroundMap.loadData(foregroundData);
+
+    // 1 - collision, 0 - ok to pass
+    var
+      collisionData = [],
+      collision = undefined;
+
+    for (var i = 0; i < foregroundData.length; i++) {
+      collisionData.push([]);
+      for (var j = 0; j < foregroundData[0].length; j++) {
+        collision = foregroundData[i][j] > 0 ? 1 : 0;
+        collisionData[i][j] = collision;
+      }
+    }
+    backgroundMap.collisionData = collisionData;
   }
 
   //var currentPlayer = new Sprite(game.spriteWidth, game.spriteHeight);
@@ -47,7 +61,6 @@ var initGame = function () {
     },
     move: function () {
       this.frame = this.offset + this.direction * 2 + this.walk;
-      //console.log(this.direction);
 
       if (this.isMoving) {
         this.moveBy(this.xMove, this.yMove);
@@ -57,7 +70,8 @@ var initGame = function () {
           this.walk %= 2;
         }
 
-        if (this.xMove || this.yMove) {
+        if ((this.xMove && (this.x % game.spriteWidth == 0)) ||
+            (this.yMove && (this.y % game.spriteHeight == 0))) {
           this.isMoving = false;
         }
       } else {
@@ -79,8 +93,16 @@ var initGame = function () {
         }
 
         if (this.xMove || this.yMove) {
-          this.isMoving = true;
-          this.move();
+          // future step
+          var x = this.x + (this.xMove ? (this.xMove / Math.abs(this.xMove)) * game.spriteWidth : 0);
+          var y = this.y + (this.yMove ? (this.yMove / Math.abs(this.yMove)) * game.spriteHeight : 0);
+
+          if (x >= 0 && x < backgroundMap.width &&
+              y >= 0 && y < backgroundMap.height &&
+              !backgroundMap.hitTest(x, y)) {
+            this.isMoving = true;
+            this.move();
+          }
         }
       }
     }
@@ -89,7 +111,7 @@ var initGame = function () {
   var currentPlayer = undefined;
 
   var initPlayers = function () {
-    currentPlayer = new Player(10, 18);
+    currentPlayer = new Player(4, 18);
     players.push(currentPlayer);
   };
 

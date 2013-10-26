@@ -4,8 +4,8 @@ var initGame = function () {
 
   enchant();
 
-  var game = new Game(640, 640);
-  game.fps = 20;
+  var game = new Game(960, 640);
+  game.fps = 15;
   game.scale = 1;
   game.spriteSheetWidth = 256;
   game.spriteSheetHeight = 32;
@@ -28,14 +28,14 @@ var initGame = function () {
   var players = [];
 
   var Player = Class.create(Sprite, {
-    initialize: function(x, y) {
+    initialize: function(startingX, startingY) {
       Sprite.call(this, game.spriteWidth, game.spriteHeight);
       this.offset = 0;
       this.direction = 0;
       this.walk = 0;
       this.frame = [0, 1];
-      this.startingX = 10;
-      this.startingY = 10;
+      this.startingX = startingX;
+      this.startingY = startingY;
       this.isMoving = false;
       this.x = this.startingX * game.spriteWidth;
       this.y = this.startingY * game.spriteHeight;
@@ -47,7 +47,7 @@ var initGame = function () {
     },
     move: function () {
       this.frame = this.offset + this.direction * 2 + this.walk;
-      console.log(this.direction);
+      //console.log(this.direction);
 
       if (this.isMoving) {
         this.moveBy(this.xMove, this.yMove);
@@ -89,7 +89,7 @@ var initGame = function () {
   var currentPlayer = undefined;
 
   var initPlayers = function () {
-    currentPlayer = new Player(10, 10);
+    currentPlayer = new Player(10, 18);
     players.push(currentPlayer);
   };
 

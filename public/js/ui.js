@@ -2,7 +2,6 @@ App.ui = (function () {
 
   var
     $name        = $('#name'),
-    $hostGame    = $('#host-game'),
     $joinGame    = $('#join-game'),
     $roomId      = $('#room-id'),
 
@@ -15,10 +14,6 @@ App.ui = (function () {
     $joinGame.on('submit', joinGame);
   },
 
-  hostGame = function () {
-    App.io.emit('createGame', { name: $name.val() });
-  },
-
   joinGame = function () {
     App.io.emit('joinGame', { name: $name.val(), roomId: $roomId.val() });
   };
@@ -29,4 +24,4 @@ App.ui = (function () {
 
 })();
 
-App.ui.init();
+// App.ui.init();

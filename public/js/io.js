@@ -28,12 +28,13 @@ App.io = (function () {
 
   // Emitters
 
-  joinGame = function (data) {
-    socket.emit('joinGame', data);
+  emit = function (eventName, data) {
+    socket.emit(eventName, data);
   };
 
   return {
-    init: init
+    init: init,
+    emit: emit
   }
 
 })();

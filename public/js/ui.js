@@ -11,16 +11,16 @@ App.ui = (function () {
   },
 
   bindEvents = function () {
-    hostGame.on('submit', hostGame);
-    joinGame.on('submit', joinGame);
+    hostGame.on('submit', hostGame());
+    joinGame.on('submit', joinGame());
   },
 
   hostGame = function () {
-    socket.emit('createGame', { name: name.val() });
+    App.io.emit('createGame', { name: name.val() });
   },
 
   joinGame = function () {
-    socket.emit('joinGame', { name: name.val(), roomId: roomId.val() });
+    App.io.emit('joinGame', { name: name.val(), roomId: roomId.val() });
   };
 
   return {

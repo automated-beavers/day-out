@@ -23,6 +23,10 @@ App.ui = (function () {
     socket.emit('joinGame', { name: name.val(), roomId: roomId.val() });
   };
 
+  return {
+    init: init
+  };
+
 })();
 
 App.ui.init();

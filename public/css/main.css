@@ -18,6 +18,26 @@ h4, .h4{ font-size: 1.4em; }
 h5, .h5{ font-size: 1.2em; }
 h6, .h6{ font-size: 1em; }
 
+.form-control.large{
+  height: auto;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.dark-green{
+  color: #16A085;
+}
+
+.dark-green::-webkit-input-placeholder{
+   color: #1ABC9C;
+}
+
+.btn-larger{
+  font-size: 2em;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+}
+
 .btn-huge{
   font-size: 2.4em;
   padding: 55px 20px;

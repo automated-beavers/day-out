@@ -1,0 +1,12 @@
+{
+  "name": "automated-beavers",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "3.4.3",
+    "socket.io": "~0.9.16"
+  }
+}

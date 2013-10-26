@@ -20,10 +20,12 @@ App.io = (function () {
 
   gameCreated = function (data) {
     App.players = data.players;
+    App.roomId  = data.roomId;
   },
 
   playerJoined = function (data) {
     App.players = data.players;
+    App.roomId  = data.roomId;
   },
 
   on = function (eventName, callback) {

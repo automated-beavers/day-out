@@ -1,9 +1,12 @@
 <div class="page-header">
   <h2>
-    Hosting a game
+    Join a game
   </h2>
 </div>
 <form ng-submit="submit();">
+  <div class="form-group">
+    <input type="text" placeholder="Game ID" class="form-control large text-center" ng-model="roomId" />
+  </div>
   <div class="form-group">
     <input type="text" placeholder="Your name" class="form-control large text-center" ng-model="name" />
   </div>

@@ -6,6 +6,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', { templateUrl: '/templates/login.html' });
   $routeProvider.when('/game', { templateUrl: '/templates/game.html', controller: "game" });
   $routeProvider.when('/host', { templateUrl: '/templates/host.html', controller: "host" });
+  $routeProvider.when('/join', { templateUrl: '/templates/join.html', controller: "join" });
   $routeProvider.when('/lobby', { templateUrl: '/templates/lobby.html', controller: "lobby" });
   $routeProvider.otherwise({ redirectTo: '/' });
 }]).
@@ -17,20 +18,25 @@ controller("game", function () {
 controller("host", function ($scope, $location) {
   $scope.submit = function () {
     socket.emit('createGame', { name: $scope.name });
-    $location.path('lobby');
   };
 
   socket.on('gameCreated', function (data) {
     App.players = data.players;
     App.roomId  = data.roomId;
+    $location.path('lobby');
   });
 }).
 
 controller('join', function ($scope, $location) {
   $scope.submit = function () {
     socket.emit('joinGame', { name: $scope.name, roomId: $scope.roomId });
-    $location.path('lobby');
   }
+
+  socket.on('gameJoined', function (data) {
+    App.players = data.players;
+    App.roomId  = data.roomId;
+    $location.path('lobby');
+  });
 }).
 
 controller("lobby", function ($scope) {

@@ -33,14 +33,14 @@ h6, .h6{ font-size: 1em; }
 }
 
 .btn-larger{
-  font-size: 2em;
-  padding: 40px 20px;
+  font-size: 1.6em;
+  padding: 6px 20px;
   margin-bottom: 20px;
 }
 
 .btn-huge{
   font-size: 2.4em;
-  padding: 55px 20px;
+  padding: 35px 20px;
   margin-bottom: 32px;
 }
 

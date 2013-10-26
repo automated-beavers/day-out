@@ -1,6 +1,3 @@
-/* main game */
-
-App.game = {};
 App.game.init = function () {
   console.log('game loaded');
 
@@ -113,7 +110,7 @@ App.game.init = function () {
   var currentPlayer = undefined;
 
   var initPlayers = function () {
-    currentPlayer = new Player(3, 11);
+    currentPlayer = new Player(3, 10);
     players.push(currentPlayer);
   };
 

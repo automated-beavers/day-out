@@ -26,7 +26,9 @@ App.io = (function () {
     App.players = data.players;
   },
 
-  // Emitters
+  on = function (eventName, callback) {
+    socket.on(eventName, callback);
+  },
 
   emit = function (eventName, data) {
     socket.emit(eventName, data);
@@ -34,6 +36,7 @@ App.io = (function () {
 
   return {
     init: init,
+    on: on,
     emit: emit
   }
 

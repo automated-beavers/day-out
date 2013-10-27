@@ -89,24 +89,39 @@ h6, .h6{ font-size: 1em; }
   background-color: #003BFF;
 }
 
-.game-id{
-  background: #1abc9c;
+.lobby-section{
   padding: 12px 18px;
-  color: #fff;
   border-radius: 12px 12px 12px 12px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-.game-id label{
+.lobby-section.game-id{
+  background: #1abc9c;
+  color: #fff;
+}
+
+.lobby-section.game-address{
+  background: #3498DB;
+  color: white;
+}
+
+.lobby-section label{
   font-weight: 600;
+  margin-bottom: -18px;
+  line-height: 1;
+}
+
+.lobby-section p{
+  line-height: 1;
+}
+
+.game-id label{
   font-size: 1.6em;
-  margin-bottom: 0;
 }
 .game-id p{
   font-size: 4em;
   font-weight: 600;
-  margin-top: -18px;
   margin-bottom: 0;
 }
 

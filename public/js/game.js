@@ -11,6 +11,12 @@ App.game.init = function () {
   game.spriteWidth = 64;
   game.spriteHeight = 64;
   game.preload(['images/world.png', 'images/beaver.png']);
+  game.initialPlayerCoordinates = {
+    'yellow' : [2, 10],
+    'red'    : [6, 10],
+    'green'  : [13, 10],
+    'blue'   : [17, 10]
+  };
 
   var backgroundMap = new Map(game.spriteWidth, game.spriteHeight);
   var foregroundMap = new Map(game.spriteWidth, game.spriteHeight);
@@ -113,36 +119,45 @@ App.game.init = function () {
     },
     move: function () {
       this.frame = this.offset;
-      console.log('custom logic goes here...');
+      //console.log('custom logic goes here...');
     }
   });
 
   var currentPlayer = undefined;
 
   var initPlayers = function () {
-    /* currentPlayer = new Player(3, 10);
-    players.push(currentPlayer); */
-
     var color = undefined;
     var player = undefined;
+
+    var choosePlayer = function (color) {
+      if (color === App.currentPlayer().color) {
+        return new Player(game.initialPlayerCoordinates[color][0],
+                          game.initialPlayerCoordinates[color][1]);
+      } else  {
+        return new EnemyPlayer(game.initialPlayerCoordinates[color][0],
+                               game.initialPlayerCoordinates[color][1]);
+      }
+    }
+
     for (var i = 0; i < App.players.length; i++) {
       color = App.players[i].color;
 
       if (color == 'yellow') {
-        player = new Player(2, 10);
+        player = choosePlayer(color);
         player.offset = 0;
       } else if (color == 'red') {
-        player = new EnemyPlayer(6, 10);
+        player = choosePlayer(color);
         player.offset = 8;
       } else if (color == 'green') {
-        player = new EnemyPlayer(13, 10);
+        player = choosePlayer(color);
         player.offset = 16;
       } else if (color == 'blue') {
-        player = new EnemyPlayer(17, 10);
+        player = choosePlayer(color);
         player.offset = 24;
       }
       players.push(player);
     }
+
   };
 
   var initWorld = function () {

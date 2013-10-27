@@ -16,7 +16,7 @@ controller("game", function () {
 }).
 
 controller("host", function ($scope, $location) {
-  socket.on('gameCreated', function (data) {
+  socket.on('roomCreated', function (data) {
     App.players = data.players;
     App.roomId  = data.roomId;
     $location.path('lobby');
@@ -24,16 +24,16 @@ controller("host", function ($scope, $location) {
   });
 
   $scope.submit = function () {
-    socket.emit('createGame', { name: $scope.name });
+    socket.emit('createRoom', { name: $scope.name });
   };
 }).
 
 controller('join', function ($scope, $location) {
   $scope.submit = function () {
-    socket.emit('joinGame', { name: $scope.name, roomId: $scope.roomId });
+    socket.emit('joinRoom', { name: $scope.name, roomId: $scope.roomId });
   }
 
-  socket.on('gameJoined', function (data) {
+  socket.on('roomJoined', function (data) {
     App.players = data.players;
     App.roomId  = data.roomId;
     $location.path('lobby');

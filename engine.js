@@ -12,21 +12,21 @@ init = function(gameIo, gameSocket){
 },
 
 bindEvents = function () {
-  socket.on('createGame', createGame);
-  socket.on('joinGame', joinGame);
+  socket.on('createRoom', createRoom);
+  socket.on('joinRoom', joinRoom);
 },
 
-createGame = function (data) {
+createRoom = function (data) {
   var
     roomId  = (Math.random() * 100000) | 1,
     player  = { socketId: this.id, name: data.name };
     players = newPlayer(roomId, player);
 
   this.join(roomId);
-  this.emit('gameCreated', { roomId: roomId, players: players });
+  this.emit('roomCreated', { roomId: roomId, players: players });
 },
 
-joinGame = function (data) {
+joinRoom = function (data) {
   var
     roomId  = data.roomId,
     player  = { socketId: this.id, name: data.name },
@@ -36,7 +36,7 @@ joinGame = function (data) {
     var updatedPlayers = newPlayer(roomId, player);
     this.join(roomId);
 
-    this.emit('gameJoined', { roomId: roomId, players: updatedPlayers });
+    this.emit('roomJoined', { roomId: roomId, players: updatedPlayers });
     socket.broadcast.to(roomId).emit('playerJoined', { players: updatedPlayers });
   }
 },

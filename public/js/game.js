@@ -6,7 +6,7 @@ App.game.init = function () {
   var game = new Game(1280, 768);
   game.fps = 20;
   game.scale = 1;
-  game.spriteSheetWidth = 512;
+  game.spriteSheetWidth = 2048;
   game.spriteSheetHeight = 64;
   game.spriteWidth = 64;
   game.spriteHeight = 64;
@@ -46,7 +46,7 @@ App.game.init = function () {
       this.offset = 0;
       this.direction = 0;
       this.walk = 0;
-      this.frame = [0, 1];
+      this.frame = this.offset;
       this.startingX = startingX;
       this.startingY = startingY;
       this.isMoving = false;
@@ -107,11 +107,42 @@ App.game.init = function () {
     }
   });
 
+  var EnemyPlayer = Class.create(Player, {
+    initialize: function(startingX, startingY) {
+      Player.call(this, startingX, startingY);
+    },
+    move: function () {
+      this.frame = this.offset;
+      console.log('custom logic goes here...');
+    }
+  });
+
   var currentPlayer = undefined;
 
   var initPlayers = function () {
-    currentPlayer = new Player(3, 10);
-    players.push(currentPlayer);
+    /* currentPlayer = new Player(3, 10);
+    players.push(currentPlayer); */
+
+    var color = undefined;
+    var player = undefined;
+    for (var i = 0; i < App.players.length; i++) {
+      color = App.players[i].color;
+
+      if (color == 'yellow') {
+        player = new Player(3, 10);
+        player.offset = 0;
+      } else if (color == 'red') {
+        player = new EnemyPlayer(6, 10);
+        player.offset = 8;
+      } else if (color == 'green') {
+        player = new EnemyPlayer(10, 10);
+        player.offset = 16;
+      } else if (color == 'blue') {
+        player = new EnemyPlayer(14, 10);
+        player.offset = 24;
+      }
+      players.push(player);
+    }
   };
 
   var initWorld = function () {

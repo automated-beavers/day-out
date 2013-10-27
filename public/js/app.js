@@ -12,7 +12,7 @@ config(['$routeProvider', function($routeProvider) {
 }]).
 
 controller("game", function () {
-  initGame();
+  App.game.init();
 }).
 
 controller("host", function ($scope, $location) {

@@ -2,7 +2,7 @@ var App = {
   game: {},
   roomId: undefined,
   socketId: undefined,
-  players: [{color: 'yellow'}, {color: 'red'}, {color: 'green'}, {color: 'blue'}],
+  players: [],
   currentPlayer: function () {
     var found;
     App.players.forEach(function(item) {

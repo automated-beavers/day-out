@@ -28,7 +28,11 @@ run(function ($rootScope, $location) {
   });
 }).
 
-controller("game", function () {
+controller("game", function ($location) {
+  if(!App.roomId) {
+    $location.path('/').replace();
+  }
+
   App.game.init();
 }).
 
@@ -59,6 +63,10 @@ controller('join', function ($scope, $location) {
 }).
 
 controller("lobby", function ($scope, $location) {
+  if(!App.roomId) {
+    $location.path('/').replace();
+  }
+
   $scope.players        = App.players;
   $scope.roomId         = App.roomId;
   $scope.currentPlayer  = App.currentPlayer();

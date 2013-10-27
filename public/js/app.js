@@ -59,9 +59,9 @@ controller('join', function ($scope, $location) {
 }).
 
 controller("lobby", function ($scope, $location) {
-  $scope.players  = App.players;
-  $scope.roomId   = App.roomId;
-  $scope.role     = App.currentPlayer().role;
+  $scope.players        = App.players;
+  $scope.roomId         = App.roomId;
+  $scope.currentPlayer  = App.currentPlayer();
 
   socket.on('playerJoined', function (data) {
     App.players     = data.players;

@@ -43,14 +43,14 @@ joinRoom = function (data) {
     var updatedPlayers = newPlayer(roomId, player);
     this.join(roomId);
     this.emit('roomJoined', { roomId: roomId, players: updatedPlayers });
-    socket.broadcast.to(roomId).emit('playerJoined', { players: updatedPlayers });
+    io.sockets.in(roomId).emit('playerJoined', { players: updatedPlayers })
   } else {
     this.emit('error', { message: 'The room is full' });
   }
 },
 
 hostStartGame = function (data) {
-  socket.broadcast.to(data.roomId).emit('startGame');
+  io.sockets.in(data.roomId).emit('startGame');
 },
 
 newPlayer = function (roomId, player) {

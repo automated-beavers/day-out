@@ -31,19 +31,24 @@ App.game.init = function () {
     // 1 - collision, 0 - ok to pass
     var
       collisionData = [],
+      finishData = [],
       collision = undefined,
       item = undefined,
-      passableItems = [10, 21, 22, 23, 24, 25, 26];
+      passableItems = [10, 21, 22, 23, 24, 25, 26],
+      finishArea = [21, 22, 23, 24, 25, 26];
 
     for (var i = 0; i < foregroundData.length; i++) {
       collisionData.push([]);
+      finishData.push([]);
       for (var j = 0; j < foregroundData[0].length; j++) {
         item = foregroundData[i][j]
         collision = (item > 0 && passableItems.indexOf(item) < 0) ? 1 : 0;
         collisionData[i][j] = collision;
+        finishData[i][j] = finishArea.indexOf(item) >= 0 ? 1 : 0;
       }
     }
     backgroundMap.collisionData = collisionData;
+    foregroundMap.collisionData = finishData;
   }
 
   var Player = Class.create(Sprite, {
@@ -107,8 +112,15 @@ App.game.init = function () {
           if (x >= 0 && x < backgroundMap.width &&
               y >= 0 && y < backgroundMap.height &&
               !backgroundMap.hitTest(x, y)) {
-            this.isMoving = true;
-            this.move();
+
+            if (foregroundMap.hitTest(x, y)) {
+              socket.emit('finished', {roomId: App.roomId});
+            } else {
+              /* this.isMoving = true;
+              this.move(); */
+            }
+              this.isMoving = true;
+              this.move();
           }
         }
       }
@@ -257,6 +269,11 @@ App.game.init = function () {
     game.rootScene.addChild(stage);
   }
 
+  game.focusOnPlayer = function () {
+    /* game.rootScene.firstChild.x = x;
+    game.rootScene.firstChild.y = y; */
+  };
+
   game.onload = function () {
     initMaps();
     initPlayers();
@@ -269,6 +286,10 @@ App.game.init = function () {
         y: game.initialPlayerCoordinates['red'][0] * 64}] */
 
       // updateEnemyPlayers(dummyPlayers);
+    });
+
+    game.rootScene.on('enterframe', function (event) {
+      game.focusOnPlayer();
     });
   };
 

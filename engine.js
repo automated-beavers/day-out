@@ -18,6 +18,7 @@ bindEvents = function () {
   socket.on('joinRoom', joinRoom);
   socket.on('hostStartGame', hostStartGame);
   socket.on('positionCreate', positionCreate);
+  socket.on('finished', finished);
 },
 
 requestSocketId = function () {
@@ -57,6 +58,31 @@ hostStartGame = function (data) {
 positionCreate = function (data) {
   var playerPositions = updatePlayerPostion(data.roomId, this.id, data.x, data.y);
   io.sockets.in(data.roomId).emit('positionUpdate', { players: playerPositions })
+},
+
+finished = function (data) {
+  var winner = findWinner(data.roomId, this.id);
+  io.sockets.in(data.roomId).emit('endGame', { winner: winner })
+},
+
+findWinner = function (roomId, socketId) {
+  var players;
+
+  _.each(rooms, function (item) {
+    if(item.roomId.toString() === roomId.toString()) {
+      players = item.players;
+    }
+  });
+
+  var winner;
+
+  _.each(players, function (item) {
+    if(item.socketId.toString() === socketId.toString()) {
+      winner = item;
+    }
+  });
+
+  return winner;
 },
 
 updatePlayerPostion = function (roomId, socketId, x, y) {

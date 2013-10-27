@@ -35,6 +35,12 @@ controller("game", function ($location) {
   }
 
   App.game.init();
+
+  socket.on('endGame', function (data) {
+    App.winner = data.winner;
+    $location.path('score');
+    $scope.$apply();
+  }
 }).
 
 controller("host", function ($scope, $location) {
@@ -89,8 +95,12 @@ controller("lobby", function ($scope, $location) {
   });
 }).
 
-controller('score', function($scope, $location){
-  $scope.winner = $rootScope.winner;
+controller('score', function($scope, $location) {
+  if(!App.roomId) {
+    $location.path('/').replace();
+  }
+
+  $scope.winner = App.winner;
 }).
 
 controller('error', function ($scope, $rootScope) {

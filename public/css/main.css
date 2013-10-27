@@ -6,7 +6,7 @@
 }
 
 body{
-  background: #131313;
+  background: #34495e;
   color: #DBDBDB;
   font-size: 32px;
 }
@@ -56,6 +56,12 @@ h6, .h6{ font-size: 1em; }
   border-radius: 0 10px 10px 0;
   font-weight: 600;
   color: #1B1B1B;
+}
+
+@media all and (max-width: 1170px){
+  .lobby-players li{
+    border-radius: 10px 10px 10px 10px;
+  }
 }
 
 .lobby-players li img{

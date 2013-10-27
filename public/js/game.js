@@ -45,7 +45,7 @@ App.game.init = function () {
     backgroundMap.collisionData = collisionData;
   }
 
-  //var currentPlayer = new Sprite(game.spriteWidth, game.spriteHeight);
+  // holds all the logged in players
   var players = [];
 
   var Player = Class.create(Sprite, {
@@ -71,6 +71,7 @@ App.game.init = function () {
 
       if (this.isMoving) {
         this.moveBy(this.xMove, this.yMove);
+        socket.emit('positionCreate', {x: this.x, y: this.y});
 
         if (!(game.frame % 2)) {
           this.walk++;
@@ -159,7 +160,10 @@ App.game.init = function () {
       }
       players.push(player);
     }
+  };
 
+  // refresh each enemy player position
+  var updateEnemyPlayers = function (enemies) {
   };
 
   var initWorld = function () {
@@ -177,6 +181,10 @@ App.game.init = function () {
     initMaps();
     initPlayers();
     initWorld();
+
+    socket.on('positionUpdate', function (data) {
+      updateEnemyPlayers(data.players);
+    });
   };
 
   game.start();

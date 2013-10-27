@@ -6,7 +6,7 @@
 }
 
 body{
-  background: #34495e;
+  background: #34495e url('../images/beaver_bg.png') no-repeat top right;
   color: #DBDBDB;
   font-size: 32px;
 }
@@ -24,6 +24,10 @@ h6, .h6{ font-size: 1em; }
   margin-top: 32px;
   margin-bottom: 38px;
   text-shadow: 0 0 9px #000;
+}
+
+.form-control{
+  color: #1ABC9C;
 }
 
 .form-control.large{

@@ -19,3 +19,7 @@
 </div>
 
 <button class="btn btn-warning btn-block btn-larger" ng-show="currentPlayer.role == 'host'" ng-click="startGame()">Start Game</button>
+
+<div class="alert alert-warning text-center" ng-show="currentPlayer.role != 'host'">
+  Please wait for the host to start the game
+</div>

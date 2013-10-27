@@ -264,15 +264,14 @@ App.game.init = function () {
     initPlayers();
     initWorld();
 
-    // socket.on('positionUpdate', function (data) {
-      //console.log("updating position");
-      // updateEnemyPlayers(data.players);
-      var dummyPlayers = [{
+    socket.on('positionUpdate', function (data) {
+      updateEnemyPlayers(data.players);
+      /* var dummyPlayers = [{
         color: 'red', x: game.initialPlayerCoordinates['red'][0] * 64 - 64,
-        y: game.initialPlayerCoordinates['red'][0] * 64}]
+        y: game.initialPlayerCoordinates['red'][0] * 64}] */
 
-      updateEnemyPlayers(dummyPlayers);
-    // });
+      // updateEnemyPlayers(dummyPlayers);
+    });
   };
 
   game.start();

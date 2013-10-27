@@ -139,3 +139,22 @@ h6, .h6{ font-size: 1em; }
   width: 6em;
   display: inline-block;
 }
+
+.winner{
+  padding: 40px 20px;
+  color: white;
+  text-align: center;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.winner.player-1{ background-color: #ceb621; }
+.winner.player-2{ background-color: #d4000b; }
+.winner.player-3{ background-color: #009000; }
+.winner.player-4{ background-color: #003BFF; }
+
+footer{
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  font-size: 0.6em;
+}

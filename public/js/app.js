@@ -9,6 +9,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/join', { templateUrl: '/templates/join.html', controller: "join" });
   $routeProvider.when('/lobby', { templateUrl: '/templates/lobby.html', controller: "lobby" });
   $routeProvider.when('/error', { templateUrl: '/templates/error.html', controller: "error" });
+  $routeProvider.when('/score', { templateUrl: '/templates/score.html', controller: "score" });
   $routeProvider.otherwise({ redirectTo: '/' });
 }]).
 
@@ -86,6 +87,10 @@ controller("lobby", function ($scope, $location) {
     $location.path('game');
     $scope.$apply();
   });
+}).
+
+controller('score', function($scope, $location){
+  $scope.winner = $rootScope.winner;
 }).
 
 controller('error', function ($scope, $rootScope) {

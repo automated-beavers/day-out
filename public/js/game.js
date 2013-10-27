@@ -31,12 +31,14 @@ App.game.init = function () {
     // 1 - collision, 0 - ok to pass
     var
       collisionData = [],
-      collision = undefined;
+      collision = undefined,
+      item = undefined;
 
     for (var i = 0; i < foregroundData.length; i++) {
       collisionData.push([]);
       for (var j = 0; j < foregroundData[0].length; j++) {
-        collision = foregroundData[i][j] > 0 ? 1 : 0;
+        item = foregroundData[i][j]
+        collision = (item > 0 && item != 10) ? 1 : 0;
         collisionData[i][j] = collision;
       }
     }

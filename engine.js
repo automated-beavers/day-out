@@ -16,6 +16,7 @@ bindEvents = function () {
   socket.on('requestSocketId', requestSocketId);
   socket.on('createRoom', createRoom);
   socket.on('joinRoom', joinRoom);
+  socket.on('hostStartGame', hostStartGame);
 },
 
 requestSocketId = function () {
@@ -46,6 +47,10 @@ joinRoom = function (data) {
   } else {
     this.emit('error', { message: 'The room is full' });
   }
+},
+
+hostStartGame = function (data) {
+  socket.broadcast.to(data.roomId).emit('startGame');
 },
 
 newPlayer = function (roomId, player) {

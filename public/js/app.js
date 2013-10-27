@@ -46,16 +46,16 @@ controller("host", function ($scope, $location) {
 }).
 
 controller('join', function ($scope, $location) {
-  $scope.submit = function () {
-    socket.emit('joinRoom', { name: $scope.name, roomId: $scope.roomId });
-  }
-
   socket.on('roomJoined', function (data) {
     App.players = data.players;
     App.roomId  = data.roomId;
     $location.path('lobby');
     $scope.$apply();
   });
+
+  $scope.submit = function () {
+    socket.emit('joinRoom', { name: $scope.name, roomId: $scope.roomId });
+  }
 }).
 
 controller("lobby", function ($scope, $location) {
@@ -64,15 +64,20 @@ controller("lobby", function ($scope, $location) {
   $scope.currentPlayer  = App.currentPlayer();
   $scope.$location      = $location;
 
+  $scope.hostStartGame = function () {
+    socket.emit('hostStartGame', { roomId: App.roomId });
+  };
+
   socket.on('playerJoined', function (data) {
     App.players     = data.players;
     $scope.players  = data.players;
     $scope.$apply();
   });
 
-  $scope.startGame = function () {
+  socket.on('startGame', function () {
     $location.path('game');
-  };
+    $scope.$apply();
+  });
 }).
 
 controller('error', function ($scope, $rootScope) {

@@ -8,8 +8,17 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/host', { templateUrl: '/templates/host.html', controller: "host" });
   $routeProvider.when('/join', { templateUrl: '/templates/join.html', controller: "join" });
   $routeProvider.when('/lobby', { templateUrl: '/templates/lobby.html', controller: "lobby" });
+  $routeProvider.when('/error', { templateUrl: '/templates/error.html', controller: "error" });
   $routeProvider.otherwise({ redirectTo: '/' });
 }]).
+
+run(function ($rootScope, $location) {
+  socket.on('error', function (data) {
+    $rootScope.message = data.message;
+    $location.path('error');
+    $rootScope.$apply();
+  });
+}).
 
 controller("game", function () {
   App.game.init();
@@ -50,4 +59,8 @@ controller("lobby", function ($scope) {
     $scope.players = data.players;
     $scope.$apply();
   });
+}).
+
+controller('error', function ($scope, $rootScope) {
+  $scope.message = $rootScope.message;
 });

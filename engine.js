@@ -35,9 +35,10 @@ joinRoom = function (data) {
   if(players.length < 4) {
     var updatedPlayers = newPlayer(roomId, player);
     this.join(roomId);
-
     this.emit('roomJoined', { roomId: roomId, players: updatedPlayers });
     socket.broadcast.to(roomId).emit('playerJoined', { players: updatedPlayers });
+  } else {
+    socket.emit('error', { message: 'The room is full' });
   }
 },
 

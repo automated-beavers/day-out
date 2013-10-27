@@ -18,6 +18,14 @@ run(function ($rootScope, $location) {
     $location.path('error');
     $rootScope.$apply();
   });
+
+  socket.on('connected', function (data) {
+    socket.emit('requestSocketId');
+  });
+
+  socket.on('socketId', function (data) {
+    App.socketId = data.socketId;
+  });
 }).
 
 controller("game", function () {
@@ -50,15 +58,20 @@ controller('join', function ($scope, $location) {
   });
 }).
 
-controller("lobby", function ($scope) {
-  $scope.players = App.players;
-  $scope.roomId = App.roomId;
+controller("lobby", function ($scope, $location) {
+  $scope.players  = App.players;
+  $scope.roomId   = App.roomId;
+  $scope.role     = App.currentPlayer().role;
 
   socket.on('playerJoined', function (data) {
-    App.players = data.players;
-    $scope.players = data.players;
+    App.players     = data.players;
+    $scope.players  = data.players;
     $scope.$apply();
   });
+
+  $scope.startGame = function () {
+    $location.path('game');
+  };
 }).
 
 controller('error', function ($scope, $rootScope) {

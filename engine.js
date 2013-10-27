@@ -12,8 +12,14 @@ init = function(gameIo, gameSocket){
 },
 
 bindEvents = function () {
+  socket.emit('connected');
+  socket.on('requestSocketId', requestSocketId);
   socket.on('createRoom', createRoom);
   socket.on('joinRoom', joinRoom);
+},
+
+requestSocketId = function () {
+  this.emit('socketId', { socketId: this.id });
 },
 
 createRoom = function (data) {
@@ -38,7 +44,7 @@ joinRoom = function (data) {
     this.emit('roomJoined', { roomId: roomId, players: updatedPlayers });
     socket.broadcast.to(roomId).emit('playerJoined', { players: updatedPlayers });
   } else {
-    socket.emit('error', { message: 'The room is full' });
+    this.emit('error', { message: 'The room is full' });
   }
 },
 

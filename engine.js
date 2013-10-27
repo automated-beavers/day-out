@@ -56,8 +56,10 @@ hostStartGame = function (data) {
 },
 
 positionCreate = function (data) {
-  var playerPositions = updatePlayerPostion(data.roomId, this.id, data.x, data.y);
-  io.sockets.in(data.roomId).emit('positionUpdate', { players: playerPositions })
+  if(data.roomId) {
+    var playerPositions = updatePlayerPostion(data.roomId, this.id, data.x, data.y);
+    io.sockets.in(data.roomId).emit('positionUpdate', { players: playerPositions });
+  }
 },
 
 finished = function (data) {

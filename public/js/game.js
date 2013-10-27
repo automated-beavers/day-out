@@ -46,7 +46,6 @@ App.game.init = function () {
     backgroundMap.collisionData = collisionData;
   }
 
-
   var Player = Class.create(Sprite, {
     initialize: function(startingX, startingY) {
       Sprite.call(this, game.spriteWidth, game.spriteHeight);
@@ -196,8 +195,32 @@ App.game.init = function () {
   // refresh each enemy player position
   var updateEnemyPlayers = function (enemies) {
 
-    var figureOutDirection = function () {
+    var figureOutDirection = function (player, enemy) {
+      var
+        // player = game.players[i],
+        /* oldX = game.players[i].x,
+        oldY = game.players[i].y, */
+        oldX = player.x,
+        oldY = player.y,
+        newX = enemy.x,
+        newY = enemy.y;
 
+      player.xMove = 0;
+      player.yMove = 0;
+
+      if (newX > oldX) {
+        player.direction = 2;
+        player.xMove = 8;
+      } else if (newX < oldX) {
+        player.direction = 3;
+        player.xMove = -8;
+      } else if (newY > oldY) {
+        player.direction = 0;
+        player.yMove = 8;
+      } else if (newY < oldY) {
+        player.direction = 1;
+        player.yMove = -8;
+      }
     };
 
     var findEnemy = function (player, others) {
@@ -217,32 +240,7 @@ App.game.init = function () {
         if (enemy) {
           //console.log('updating enemy');
           //console.log(enemy);
-          var
-            player = game.players[i],
-            oldX = game.players[i].x,
-            oldY = game.players[i].y,
-            newX = enemy.x,
-            newY = enemy.y;
-
-          player.xMove = 0;
-          player.yMove = 0;
-
-          if (newX > oldX) {
-            player.direction = 2;
-            player.xMove = 8;
-          } else if (newX < oldX) {
-            player.direction = 3;
-            player.xMove = -8;
-          } else if (newY > oldY) {
-            player.direction = 0;
-            player.yMove = 8;
-          } else if (newY < oldY) {
-            player.direction = 1;
-            player.yMove = -8;
-          }
-          // player.move();
-          /* game.players[i].x = newX;
-          game.players[i].y = newY; */
+          figureOutDirection(game.players[i], enemy);
         }
       }
     }

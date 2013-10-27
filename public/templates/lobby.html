@@ -1,14 +1,16 @@
-<ul class="lobby-players col-lg-6">
-  <li ng-repeat="player in players" class="player-{{$index+1}}">
-    <img src="images/player{{$index+1}}.png" />
-    {{player.name}}
-  </li>
-  <li class="player-2"><img src="images/player2.png" />Darryl</li>
-</ul>
+<div class="row">
+  <ul class="lobby-players col-lg-6">
+    <li ng-repeat="player in players" class="player-{{$index+1}}">
+      <img src="images/player{{$index+1}}.png" />{{player.name}}
+    </li>
+  </ul>
 
-<div class="col-lg-6 text-center">
-  <div class="game-id">
-    <label>Game ID</label>
-    <p>{{roomId}}</p>
+  <div class="col-lg-6 text-center">
+    <div class="game-id">
+      <label>Game ID</label>
+      <p>{{roomId}}</p>
+    </div>
   </div>
 </div>
+
+<a class="btn btn-warning btn-block btn-larger" href="#">Start Game!</a>

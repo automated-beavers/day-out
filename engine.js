@@ -32,12 +32,12 @@ joinGame = function (data) {
     player  = { socketId: this.id, name: data.name },
     players = io.sockets.clients(roomId);
 
-  if(players.count < 4) {
+  if(players.length < 4) {
     var updatedPlayers = newPlayer(roomId, player);
     this.join(roomId);
 
     this.emit('gameJoined', { roomId: roomId, players: updatedPlayers });
-    socket.broadcast.to(roomId).emit('playerJoined', data);
+    socket.broadcast.to(roomId).emit('playerJoined', { players: updatedPlayers });
   }
 },
 
@@ -45,12 +45,14 @@ newPlayer = function (roomId, player) {
   var roomIndex;
 
   _.each(rooms, function (item, index) {
-    if(item.roomId === roomId) {
+    if(item.roomId.toString() === roomId.toString()) {
       roomIndex = index;
     }
   });
 
-  if(roomIndex) {
+  console.log(roomIndex);
+
+  if(roomIndex !== undefined) {
     player.color = colors[rooms[roomIndex].players.length];
     rooms[roomIndex].players.push(player);
     return rooms[roomIndex].players;

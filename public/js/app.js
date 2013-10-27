@@ -16,15 +16,16 @@ controller("game", function () {
 }).
 
 controller("host", function ($scope, $location) {
-  $scope.submit = function () {
-    socket.emit('createGame', { name: $scope.name });
-  };
-
   socket.on('gameCreated', function (data) {
     App.players = data.players;
     App.roomId  = data.roomId;
     $location.path('lobby');
+    $scope.$apply();
   });
+
+  $scope.submit = function () {
+    socket.emit('createGame', { name: $scope.name });
+  };
 }).
 
 controller('join', function ($scope, $location) {
@@ -36,6 +37,7 @@ controller('join', function ($scope, $location) {
     App.players = data.players;
     App.roomId  = data.roomId;
     $location.path('lobby');
+    $scope.$apply();
   });
 }).
 
@@ -44,6 +46,8 @@ controller("lobby", function ($scope) {
   $scope.roomId = App.roomId;
 
   socket.on('playerJoined', function (data) {
-    $scope.players = App.players = data.players;
+    App.players = data.players;
+    $scope.players = data.players;
+    $scope.$apply();
   });
 });

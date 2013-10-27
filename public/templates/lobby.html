@@ -8,7 +8,7 @@
   <div class="col-lg-6 text-center">
     <div class="lobby-section game-address">
       <label>Tell your fellow beavers to visit:</label>
-      <p id="game-address">http://hugebeavers.com</p>
+      <p id="game-address">{{$location.protocol()}}://{{$location.host()}}:{{$location.port()}}</p>
     </div>
 
     <div class="lobby-section game-id">

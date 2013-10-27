@@ -38,6 +38,7 @@ controller("game", function ($location, $scope) {
 
   socket.on('endGame', function (data) {
     App.winner = data.winner;
+    App.roomId = undefined;
     $location.path('score');
     $scope.$apply();
   });

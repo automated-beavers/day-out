@@ -40,7 +40,7 @@ controller("game", function ($location) {
     App.winner = data.winner;
     $location.path('score');
     $scope.$apply();
-  }
+  });
 }).
 
 controller("host", function ($scope, $location) {

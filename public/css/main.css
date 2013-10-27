@@ -18,6 +18,14 @@ h4, .h4{ font-size: 1.4em; }
 h5, .h5{ font-size: 1.2em; }
 h6, .h6{ font-size: 1em; }
 
+.site-title{
+  text-align: center;
+  font-size: 3em;
+  margin-top: 32px;
+  margin-bottom: 38px;
+  text-shadow: 0 0 9px #000;
+}
+
 .form-control.large{
   height: auto;
   font-size: 2em;

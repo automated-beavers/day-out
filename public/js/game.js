@@ -115,12 +115,9 @@ App.game.init = function () {
 
             if (foregroundMap.hitTest(x, y)) {
               socket.emit('finished', {roomId: App.roomId});
-            } else {
-              /* this.isMoving = true;
-              this.move(); */
             }
-              this.isMoving = true;
-              this.move();
+            this.isMoving = true;
+            this.move();
           }
         }
       }

@@ -17,6 +17,7 @@ bindEvents = function () {
   socket.on('createRoom', createRoom);
   socket.on('joinRoom', joinRoom);
   socket.on('hostStartGame', hostStartGame);
+  socket.on('positionCreate', positionCreate);
 },
 
 requestSocketId = function () {
@@ -51,6 +52,34 @@ joinRoom = function (data) {
 
 hostStartGame = function (data) {
   io.sockets.in(data.roomId).emit('startGame');
+},
+
+positionCreate = function (data) {
+  var playerPositions = updatePlayerPostion(data.roomId, this.id, data.x, data.y);
+  io.sockets.in(data.roomId).emit('positionUpdate', { players: playerPositions })
+},
+
+updatePlayerPostion = function (roomId, socketId, x, y) {
+  var players;
+
+  _.each(rooms, function (item) {
+    if(item.roomId.toString() === roomId.toString()) {
+      players = item.players;
+    }
+  });
+
+  var updateIndex;
+
+  _.each(players, function (item, index) {
+    if(item.socketId.toString() === socketId.toString()) {
+      updateIndex = index;
+    }
+  });
+
+  players[updateIndex].x = x;
+  players[updateIndex].y = y;
+
+  return players;
 },
 
 newPlayer = function (roomId, player) {

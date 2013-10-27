@@ -29,7 +29,7 @@ run(function ($rootScope, $location) {
   });
 }).
 
-controller("game", function ($location) {
+controller("game", function ($location, $scope) {
   if(!App.roomId) {
     $location.path('/').replace();
   }

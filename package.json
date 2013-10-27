@@ -2,6 +2,7 @@
   "name": "automated-beavers",
   "version": "0.0.1",
   "private": true,
+  "subdomain": "automated-beavers",
   "scripts": {
     "start": "node server.js"
   },
@@ -9,5 +10,8 @@
     "express": "3.4.3",
     "socket.io": "~0.9.16",
     "underscore": "~1.5.2"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }

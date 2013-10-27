@@ -129,16 +129,16 @@ App.game.init = function () {
       color = App.players[i].color;
 
       if (color == 'yellow') {
-        player = new Player(3, 10);
+        player = new Player(2, 10);
         player.offset = 0;
       } else if (color == 'red') {
         player = new EnemyPlayer(6, 10);
         player.offset = 8;
       } else if (color == 'green') {
-        player = new EnemyPlayer(10, 10);
+        player = new EnemyPlayer(13, 10);
         player.offset = 16;
       } else if (color == 'blue') {
-        player = new EnemyPlayer(14, 10);
+        player = new EnemyPlayer(17, 10);
         player.offset = 24;
       }
       players.push(player);

@@ -18,10 +18,11 @@ App.game.init = function () {
   game.players = [];// holds all the logged in players
   game.currentPlayer = App.currentPlayer();
 
-  // inanimate elements map
-  var backgroundMap = new Map(game.spriteWidth, game.spriteHeight);
-  // obstacles map
-  var foregroundMap = new Map(game.spriteWidth, game.spriteHeight);
+  var
+    // inanimate elements map
+    backgroundMap = new Map(game.spriteWidth, game.spriteHeight),
+    // obstacles map
+    foregroundMap = new Map(game.spriteWidth, game.spriteHeight);
 
   // initialize world maps
   var initMaps = function () {
@@ -134,7 +135,6 @@ App.game.init = function () {
       this.frame = this.offset + this.direction * 2 + this.walk;
 
       if (this.isMoving) {
-        //console.log('moving by ...');
         this.moveBy(this.xMove, this.yMove);
 
         if (!(game.frame % 2)) {
@@ -208,9 +208,6 @@ App.game.init = function () {
 
     var figureOutDirection = function (player, enemy) {
       var
-        // player = game.players[i],
-        /* oldX = game.players[i].x,
-        oldY = game.players[i].y, */
         oldX = player.x,
         oldY = player.y,
         newX = enemy.x,
@@ -246,11 +243,8 @@ App.game.init = function () {
 
     for (var i = 0; i < game.players.length; i++) {
       if (game.players[i].color !== game.currentPlayer.color) {
-        //console.log(game.players[i].color);
         var enemy = findEnemy(game.players[i], enemies);
         if (enemy) {
-          //console.log('updating enemy');
-          //console.log(enemy);
           figureOutDirection(game.players[i], enemy);
         }
       }
@@ -281,11 +275,6 @@ App.game.init = function () {
 
     socket.on('positionUpdate', function (data) {
       updateEnemyPlayers(data.players);
-      /* var dummyPlayers = [{
-        color: 'red', x: game.initialPlayerCoordinates['red'][0] * 64 - 64,
-        y: game.initialPlayerCoordinates['red'][0] * 64}] */
-
-      // updateEnemyPlayers(dummyPlayers);
     });
 
     game.rootScene.on('enterframe', function (event) {

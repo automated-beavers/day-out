@@ -73,7 +73,7 @@ App.game.init = function () {
     onenterframe: function () {
       this.move();
     },
-    move: function () {
+    move: function (targetX, targetY) {
       this.frame = this.offset + this.direction * 2 + this.walk;
 
       if (this.isMoving) {
@@ -93,16 +93,28 @@ App.game.init = function () {
         this.xMove = 0;
         this.yMove = 0;
 
-        if (game.input.up) {
+        if (game.input.up ||
+            (targetY && targetY < this.y &&
+            (targetX > this.x - game.spriteWidth) &&
+            (targetX < this.x + game.spriteWidth))) {
           this.direction = 1;
           this.yMove = -8;
-        } else if (game.input.down) {
+        } else if (game.input.down ||
+                   (targetY && targetY > this.y &&
+                   (targetX > this.x - game.spriteWidth) &&
+                   (targetX < this.x + game.spriteWidth))) {
           this.direction = 0;
           this.yMove = 8;
-        } else if (game.input.right) {
+        } else if (game.input.right ||
+                   (targetX && targetX > this.x &&
+                   (targetY < this.y + game.spriteWidth) &&
+                   (targetY > this.y - game.spriteWidth))) {
           this.direction = 2;
           this.xMove = 8;
-        } else if (game.input.left) {
+        } else if (game.input.left ||
+                  (targetX && targetX < this.x &&
+                  (targetY < this.y + game.spriteWidth) &&
+                  (targetY > this.y - game.spriteWidth))) {
           this.direction = 3;
           this.xMove = -8;
         }
@@ -171,8 +183,9 @@ App.game.init = function () {
 
     var choosePlayer = function (color) {
       if (color === game.currentPlayer.color) {
-        return new Player(game.initialPlayerCoordinates[color][0],
+        currentPlayer = new Player(game.initialPlayerCoordinates[color][0],
                           game.initialPlayerCoordinates[color][1]);
+        return currentPlayer;
       } else  {
         return new EnemyPlayer(game.initialPlayerCoordinates[color][0],
                                game.initialPlayerCoordinates[color][1]);
@@ -263,9 +276,17 @@ App.game.init = function () {
     game.rootScene.addChild(stage);
   }
 
-  game.focusOnPlayer = function () {
-    /* game.rootScene.firstChild.x = x;
-    game.rootScene.firstChild.y = y; */
+  game.focusOnCurrentPlayer = function () {
+    /* if (currentPlayer) {
+      var
+        x = Math.min((game.width - game.spriteWidth) / 2 - currentPlayer.x, 0),
+        y = Math.min((game.height - game.spriteHeight) / 2 - currentPlayer.y, 0);
+      x = Math.max(game.width, x + backgroundMap.width) - backgroundMap.width;
+      y = Math.max(game.width, y + backgroundMap.height) - backgroundMap.height;
+
+      game.rootScene.firstChild.x = x;
+      game.rootScene.firstChild.y = y;
+    } */
   };
 
   game.onload = function () {
@@ -277,8 +298,14 @@ App.game.init = function () {
       updateEnemyPlayers(data.players);
     });
 
-    game.rootScene.on('enterframe', function (event) {
-      game.focusOnPlayer();
+    game.rootScene.on('enterframe', function (evnt) {
+      game.focusOnCurrentPlayer();
+    });
+
+    game.rootScene.on('touchstart', function (evnt) {
+      if (currentPlayer) {
+        currentPlayer.move(evnt.x, evnt.y);
+      }
     });
   };
 

@@ -18,14 +18,16 @@ App.game.init = function () {
   game.players = [];// holds all the logged in players
   game.currentPlayer = App.currentPlayer();
 
+  // inanimate elements map
   var backgroundMap = new Map(game.spriteWidth, game.spriteHeight);
+  // obstacles map
   var foregroundMap = new Map(game.spriteWidth, game.spriteHeight);
 
   // initialize world maps
   var initMaps = function () {
     backgroundMap.image = game.assets['images/world.png'];
     backgroundMap.loadData(backgroundData);
-    foregroundMap.image = game.assets['images/beaver.png'];
+    foregroundMap.image = game.assets['images/world.png'];
     foregroundMap.loadData(foregroundData);
 
     // 1 - collision, 0 - ok to pass
@@ -259,10 +261,11 @@ App.game.init = function () {
     var stage = new Group();
     stage.addChild(backgroundMap);
     stage.addChild(foregroundMap);
+
     for (var i = 0; i < game.players.length; i++) {
       stage.addChild(game.players[i]);
     }
-    game.rootScene.parentNode = document.getElementById('game');
+
     game.rootScene.addChild(stage);
   }
 

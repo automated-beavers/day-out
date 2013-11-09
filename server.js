@@ -25,6 +25,5 @@ server.listen(app.get('port'), function(){
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function (socket) {
-  console.log('Client connected');
   engine.init(io, socket);
 });

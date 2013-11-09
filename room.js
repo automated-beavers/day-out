@@ -46,7 +46,7 @@ findPlayer = function (roomId, socketId) {
     return players[index];
 },
 
-delete = function (roomId) {
+destroy = function (roomId) {
   var index = locate(roomId);
   rooms.splice(index, 1);
 },
@@ -95,5 +95,5 @@ module.exports = {
   join: join,
   updatePostion: updatePostion,
   findPlayer: findPlayer,
-  delete: delete
+  destroy: destroy
 };

@@ -20,10 +20,6 @@ run(function ($rootScope, $location) {
     $rootScope.$apply();
   });
 
-  socket.on('connected', function (data) {
-    socket.emit('requestSocketId');
-  });
-
   socket.on('socketId', function (data) {
     App.socketId = data.socketId;
   });

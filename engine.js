@@ -10,8 +10,7 @@ init = function(gameIo, gameSocket){
 },
 
 bindEvents = function () {
-  socket.emit('connected');
-  socket.on('requestSocketId', requestSocketId);
+  socket.on('connection', connection);
   socket.on('createRoom', createRoom);
   socket.on('joinRoom', joinRoom);
   socket.on('hostStartGame', hostStartGame);
@@ -20,7 +19,7 @@ bindEvents = function () {
   socket.on('disconnect', disconnect);
 },
 
-requestSocketId = function () {
+connection = function () {
   this.emit('socketId', { socketId: this.id });
 },
 
@@ -74,7 +73,11 @@ finished = function (data) {
       winner = Room.findPlayer(roomId, this.id);
 
   io.sockets.in(roomId).emit('endGame', { winner: winner });
-  Room.delete(roomId);
+  Room.destroy(roomId);
+},
+
+disconnect = function () {
+
 };
 
 exports.init = init;

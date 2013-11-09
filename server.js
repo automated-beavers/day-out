@@ -3,7 +3,7 @@ var
   http = require('http'),
   path = require('path'),
   app = express();
-  engine = require('./engine');
+  engine = require('./app/engine');
 
 // all environments
 app.set('port', process.env.PORT || 3000);

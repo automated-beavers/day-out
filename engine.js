@@ -10,7 +10,7 @@ init = function(gameIo, gameSocket){
 },
 
 bindEvents = function () {
-  socket.on('connection', connection);
+  connection();
   socket.on('createRoom', createRoom);
   socket.on('joinRoom', joinRoom);
   socket.on('hostStartGame', hostStartGame);
@@ -20,7 +20,7 @@ bindEvents = function () {
 },
 
 connection = function () {
-  this.emit('socketId', { socketId: this.id });
+  socket.emit('socketId', { socketId: socket.id });
 },
 
 createRoom = function (data) {
@@ -78,6 +78,6 @@ finished = function (data) {
 
 disconnect = function () {
 
-};
+}
 
 exports.init = init;

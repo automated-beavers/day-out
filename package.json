@@ -1,6 +1,6 @@
 {
   "name": "day-out",
-  "version": "0.0.1-7",
+  "version": "0.0.1-8",
   "private": true,
   "subdomain": "automated-beavers",
   "scripts": {

@@ -25,13 +25,13 @@ connection = function () {
 
 createRoom = function (data) {
   var player = {};
-  player.socketId = this.id;
+  player.socketId = socket.id;
   player.name     = data.name;
 
   var room = Room.create(player);
 
-  this.join(room.roomId);
-  this.emit('roomCreated', { roomId: room.roomId, players: room.players });
+  socket.join(room.roomId);
+  socket.emit('roomCreated', { roomId: room.roomId, players: room.players });
 },
 
 joinRoom = function (data) {
@@ -40,18 +40,18 @@ joinRoom = function (data) {
     roomCount = io.sockets.clients(roomId).length;
 
   if(roomCount > 4) {
-    this.emit('error', { message: 'The room is full' });
+    socket.emit('error', { message: 'The room is full' });
     return;
   }
 
   var player  = {};
-  player.socketId = this.id;
+  player.socketId = socket.id;
   player.name     = data.name;
 
   var room = Room.join(roomId, player);
-  this.join(roomId);
+  socket.join(roomId);
 
-  this.emit('roomJoined', { roomId: roomId, players: room.players });
+  socket.emit('roomJoined', { roomId: roomId, players: room.players });
   io.sockets.in(roomId).emit('playerJoined', { players: room.players });
 },
 
@@ -63,14 +63,14 @@ positionCreate = function (data) {
   var roomId = data.roomId;
 
   if(roomId) {
-    var players = Room.updatePostion(roomId, this.id, data.x, data.y);
+    var players = Room.updatePostion(roomId, socket.id, data.x, data.y);
     io.sockets.in(roomId).emit('positionUpdate', { players: players });
   }
 },
 
 finished = function (data) {
   var roomId = data.roomId,
-      winner = Room.findPlayer(roomId, this.id);
+      winner = Room.findPlayer(roomId, socket.id);
 
   io.sockets.in(roomId).emit('endGame', { winner: winner });
   Room.destroy(roomId);

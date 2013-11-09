@@ -25,11 +25,11 @@ join = function (roomId, player) {
   return rooms[index];
 },
 
-updatePostion = function (roomId, socketId, x, y) {
+updatePosition = function (roomId, socketId, x, y) {
   var
-    roomIindex  = locate(roomId),
-    players     = rooms[roomIindex].players,
-    index       = locatePlayer(players, socketId);
+    roomIndex = locate(roomId),
+    players   = rooms[roomIndex].players,
+    index     = locatePlayer(players, socketId);
 
   players[index].x = x;
   players[index].y = y;
@@ -39,9 +39,9 @@ updatePostion = function (roomId, socketId, x, y) {
 
 findPlayer = function (roomId, socketId) {
   var
-    roomIindex  = locate(roomId),
-    players     = rooms[roomIindex].players,
-    index       = locatePlayer(players, socketId);
+    roomIndex = locate(roomId),
+    players   = rooms[roomIndex].players,
+    index     = locatePlayer(players, socketId);
 
     return players[index];
 },
@@ -93,7 +93,7 @@ randomId = function () {
 module.exports = {
   create: create,
   join: join,
-  updatePostion: updatePostion,
+  updatePosition: updatePosition,
   findPlayer: findPlayer,
   destroy: destroy
 };

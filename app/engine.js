@@ -39,7 +39,7 @@ joinRoom = function (data) {
     roomId    = data.roomId,
     roomCount = io.sockets.clients(roomId).length;
 
-  if(roomCount > 4) {
+  if (roomCount > 4) {
     socket.emit('error', { message: 'The room is full' });
     return;
   }
@@ -62,8 +62,8 @@ hostStartGame = function (data) {
 positionCreate = function (data) {
   var roomId = data.roomId;
 
-  if(roomId) {
-    var players = Room.updatePostion(roomId, socket.id, data.x, data.y);
+  if (roomId) {
+    var players = Room.updatePosition(roomId, socket.id, data.x, data.y);
     io.sockets.in(roomId).emit('positionUpdate', { players: players });
   }
 },

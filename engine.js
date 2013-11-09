@@ -17,6 +17,7 @@ bindEvents = function () {
   socket.on('hostStartGame', hostStartGame);
   socket.on('positionCreate', positionCreate);
   socket.on('finished', finished);
+  socket.on('disconnect', disconnect);
 },
 
 requestSocketId = function () {
@@ -69,8 +70,11 @@ positionCreate = function (data) {
 },
 
 finished = function (data) {
-  var winner = Room.findPlayer(data.roomId, this.id);
-  io.sockets.in(data.roomId).emit('endGame', { winner: winner });
+  var roomId = data.roomId,
+      winner = Room.findPlayer(roomId, this.id);
+
+  io.sockets.in(roomId).emit('endGame', { winner: winner });
+  Room.delete(roomId);
 };
 
 exports.init = init;

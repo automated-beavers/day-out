@@ -8,6 +8,7 @@ App.game.init = function () {
   game.spriteSheetHeight = 64;
   game.spriteWidth = 64;
   game.spriteHeight = 64;
+  game.finished = false;
   game.preload(['images/world.png', 'images/beaver.png']);
   game.initialPlayerCoordinates = {
     'yellow' : [2, 10],
@@ -78,7 +79,9 @@ App.game.init = function () {
 
       if (this.isMoving) {
         this.moveBy(this.xMove, this.yMove);
-        socket.emit('positionCreate', {x: this.x, y: this.y, roomId: App.roomId});
+        if (!game.finished) {
+          socket.emit('positionCreate', {x: this.x, y: this.y, roomId: App.roomId});
+        }
 
         if (!(game.frame % 2)) {
           this.walk++;
@@ -129,6 +132,7 @@ App.game.init = function () {
               !backgroundMap.hitTest(x, y)) {
 
             if (foregroundMap.hitTest(x, y)) {
+              game.finished = true
               socket.emit('finished', {roomId: App.roomId});
             }
             this.isMoving = true;
@@ -293,6 +297,10 @@ App.game.init = function () {
     initMaps();
     initPlayers();
     initWorld();
+
+    socket.on('endGame', function (data) {
+      game.finished = true;
+    });
 
     socket.on('positionUpdate', function (data) {
       updateEnemyPlayers(data.players);
